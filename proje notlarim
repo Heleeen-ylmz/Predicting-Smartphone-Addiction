@@ -1,1 +1,36 @@
+Kaggle de bulunan Predicting Smartphone Addiction (Playground Series - Season 6 Episode 8) yarışması için yapıcağımız bu analızde süremiz 18 gün .
+
+Birincil hedef sunulan bu buyuk veri yığınını analiz etmek ve yeni deneyimler bilgiler edinmek.(veri setinin büyüklüğüne dikkat edilmeli ram için)
+
+BİZE VERİLEN 3 DOSYA VAR:
+
+- train.csv (bu dosya da eğitim veri setimiz var veriyi anlamamiz ve geliştirilecek modele öğretmek için kullanıcaz)
+
+- test.csv  (bu dosya ise yarişmadan istenen sey eğitilen modele verilicek soru -cevap için gerekli dosyadır)
+
+-sample_submission.csv (biten analizi yükleyeceğimiz teslim alanı)
+
+
+1.KEŞİF ANALİZİ
+
+*veriyi önden incelemek  bize kullanılacak yol ile ilgili fikir verir:
+
+-Hedef Değişkenimiz (Target): addicted_label (1 ve 0'lardan oluşuyor, yani bu bir İkili Sınıflandırma / Binary Classification problemi).
+
+-Veri Boyutu: Train kümesinde ~691 bin, Test kümesinde ~296 bin gözlem var.
+
+-Gözümüzü Çarpan İlk Detay: Sadece ilk 5 satırda bile ciddi sayıda NaN (eksik veri) görüyoruz (daily_screen_time_hours, gaming_hours, academic_work_impact vb).
+
+İLK ADIM İÇİN:
+
+A.)Eksik Veri Davranışı: train.isnull().sum() çıktısında en çok eksik veri hangi sütunlarda var? Eksik verilerin oranı toplam verinin % kaçına denk geliyor? (Örn: %5 mi, %40 mı?)
+
+ !Sektörde bir özelliğin %50'den fazlası eksikse, onu doldurmak mı yoksa silmek mi gerektiğine iş mantığıyla karar veririz.
+
+B.)Mantıksal Tutarsızlık Arayışı (Feature Logic Check): Toplam kırılımlar (6.63 saat), günlük toplam ekran süresinden (11.20 saat) küçük. Araya diğer uygulamalar girmiş olabilir. 
+Peki ya bir satırda kırılımların toplamı günlük ekran süresini geçerse ne demektir? (Veri kalitesi problemi mi?
+
+C.)Veri Tipleri (Dtypes): Categorical (kategorik) olan sütunlarımız hangileri?
+
+
 
