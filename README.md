@@ -61,4 +61,7 @@ Eğitim sürecinde dünyada tabüler verilerde kabul görmüş SOTA (State-of-th
 │   └── test.csv                              # Test veri seti (Giriş)
 ├── submission.csv                            # Final Stacking tahminleri
 └── README.md                                 # Proje dokümantasyonu
+## 📓 Proje Notebook'ları
+- `01_EDA_ChrisDeotte_Roadmap.ipynb`: Kaggle Grandmaster yol haritası temel alınarak hazırlanan detaylı keşifsel veri analizi, eksik değer dedektifliği ve etkileşim haritaları.
+- `02_Model_Training.ipynb`: Model eğitimi ve tahmin süreçleri.
 
