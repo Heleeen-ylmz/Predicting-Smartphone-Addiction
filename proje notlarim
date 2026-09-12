@@ -1,36 +1,36 @@
-Kaggle de bulunan Predicting Smartphone Addiction (Playground Series - Season 6 Episode 8) yarışması için yapıcağımız bu analızde süremiz 18 gün .
 
-Birincil hedef sunulan bu buyuk veri yığınını analiz etmek ve yeni deneyimler bilgiler edinmek.(veri setinin büyüklüğüne dikkat edilmeli ram için)
+# 📓 Veri Analizi ve Çalışma Notları (Exploratory Notes)
 
-BİZE VERİLEN 3 DOSYA VAR:
+## 📁 Veri Seti Yapısı
+* **train.csv:** Eğitilebilir model boru hattının kurulması, veri kalitesi kontrollerinin yapılması ve algoritmaların eğitilmesi için kullanılan ana veri seti (~691 bin gözlem).
+* **test.csv:** Eğitilen modellerin gerçek dünya performansını ölçmek üzere tahmin üretilecek hedef veri seti (~296 bin gözlem)[cite: 2].
+* **sample_submission.csv:** Yarışma formatına uygun nihai tahmin çıktılarının kaydedildiği şablon dosya[cite: 2].
 
-- train.csv (bu dosya da eğitim veri setimiz var veriyi anlamamiz ve geliştirilecek modele öğretmek için kullanıcaz)
+---
 
-- test.csv  (bu dosya ise yarişmadan istenen sey eğitilen modele verilicek soru -cevap için gerekli dosyadır)
+## 🔍 1. Keşifçi Veri Analizi (EDA) Çıkarımları
 
--sample_submission.csv (biten analizi yükleyeceğimiz teslim alanı)
+Verinin ilk incelemesi, kurulacak modelleme stratejisi ve veri temizleme (data preprocessing) adımları için şu temel ipuçlarını vermiştir[cite: 2]:
 
+* **Hedef Değişken (Target):** `addicted_label` (1: Bağımlı, 0: Bağımlı Değil)[cite: 2]. Bu bir **İkili Sınıflandırma (Binary Classification)** problemidir[cite: 2].
+* **Veri Boyutu:** Train kümesinde ~691.369 satır ve 14 sütun; Test kümesinde ~296.302 satır bulunmaktadır[cite: 2].
+* **İlk Gözlem:** Sadece ilk 5 satırda dahi sayısal ve kategorik değişkenlerde (`daily_screen_time_hours`, `gaming_hours`, `academic_work_impact` vb.) belirgin eksik veri (NaN) örüntüleri mevcuttur[cite: 2].
 
-1.KEŞİF ANALİZİ
+---
 
-*veriyi önden incelemek  bize kullanılacak yol ile ilgili fikir verir:
+## 🛠️ İlk Adım Stratejileri ve İş Mantığı (Domain Knowledge)
 
--Hedef Değişkenimiz (Target): addicted_label (1 ve 0'lardan oluşuyor, yani bu bir İkili Sınıflandırma / Binary Classification problemi).
+### A) Eksik Veri Stratejisi (Missing Value Behavior)
+* `train.isnull().sum()` çıktısı incelendiğinde eksik verilerin toplam veri setine oranları hesaplanmıştır[cite: 2].
+* **Sektör Standardı:** Bir özelliğin %50'den fazlası eksikse silmek veya doldurmak iş mantığına göre değerlendirilir. Bu veri setinde eksikler rastgele ortalamalar yerine demografik alt grupların (`age_group`, `gender`) medyan değerleri kullanılarak (Smart Imputation) doldurulmuştur[cite: 2].
 
--Veri Boyutu: Train kümesinde ~691 bin, Test kümesinde ~296 bin gözlem var.
+### B) Mantıksal Tutarsızlık Arayışı (Feature Logic Check)
+* Kırılım saatlerinin (sosyal medya + oyun + çalışma) toplam günlük ekran süresini (`daily_screen_time_hours`) aşma durumu kontrol edilmiştir[cite: 2]. 
+* Kırılımlar toplamının günlük ekran süresinden büyük olması durumunda kullanıcı raporlama hatası veya **Veri Kalitesi Problemi** tespiti yapılır.
 
--Gözümüzü Çarpan İlk Detay: Sadece ilk 5 satırda bile ciddi sayıda NaN (eksik veri) görüyoruz (daily_screen_time_hours, gaming_hours, academic_work_impact vb).
-
-İLK ADIM İÇİN:
-
-A.)Eksik Veri Davranışı: train.isnull().sum() çıktısında en çok eksik veri hangi sütunlarda var? Eksik verilerin oranı toplam verinin % kaçına denk geliyor? (Örn: %5 mi, %40 mı?)
-
- !Sektörde bir özelliğin %50'den fazlası eksikse, onu doldurmak mı yoksa silmek mi gerektiğine iş mantığıyla karar veririz.
-
-B.)Mantıksal Tutarsızlık Arayışı (Feature Logic Check): Toplam kırılımlar (6.63 saat), günlük toplam ekran süresinden (11.20 saat) küçük. Araya diğer uygulamalar girmiş olabilir. 
-Peki ya bir satırda kırılımların toplamı günlük ekran süresini geçerse ne demektir? (Veri kalitesi problemi mi?
-
-C.)Veri Tipleri (Dtypes): Categorical (kategorik) olan sütunlarımız hangileri?
-
+### C) Veri Tipleri ve Dönüştürme (Dtypes & Encoding)
+* **Sayısal Değişkenler:** Ekran süreleri, yaş, bildirim ve uygulama açılış sayıları[cite: 2].
+* **Kategorik Değişkenler:** `gender`, `stress_level`, `academic_work_impact`[cite: 2].
+* **Uygulanan İşlemler:** Sıralı değişkenlere Ordinal Encoding (`stress_level`), sırasız değişkenlere One-Hot Encoding uygulanarak model için matris formatına dönüştürülmüştür[cite: 2].
 
 
