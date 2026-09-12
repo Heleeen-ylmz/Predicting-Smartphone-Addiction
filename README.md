@@ -48,8 +48,4 @@ Eğitim sürecinde dünyada tabüler verilerde kabul görmüş SOTA (State-of-th
 * **Veri Sızıntısı Teşhisi:** Model geliştirme esnasında eğitim verisi üzerinden alınan birinci seviye tahminler meta-modele verildiğinde skor belirgin şekilde düşmüş ve model ezberleme yapmıştır.
 * **OOF Çözümü:** 5-Fold Stratified K-Fold mimarisinde her katmanın "daha önce görmediği" doğrulama kümesinden üretilen OOF tahmin matrisi, meta-modelin gerçek dünya test verisindeki davranışını en doğru şekilde simüle etmesini sağlamıştır.
 
-  
-## 📓 Proje Notebook'ları
-- `01_EDA_ChrisDeotte_Roadmap.ipynb`: Kaggle Grandmaster yol haritası temel alınarak hazırlanan detaylı keşifsel veri analizi, eksik değer dedektifliği ve etkileşim haritaları.
-- smartphone-addiction-prediction.ipynb: Model eğitimi ve tahmin süreçleri.
-
+ 
